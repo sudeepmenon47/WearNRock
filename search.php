@@ -42,7 +42,7 @@
             <?php if($cat_id != ''): ?>
                 <h2 class="text-center"><?=$category['parent']. ' ' .$category['child'];?></h2><hr>
             <?php else: ?>
-                <h2 class="text-center">WearNRock</h2>
+                <h2 class="text-center">Products List</h2>
             <?php endif; ?>
             <?php while($product = mysqli_fetch_assoc($productQ)) : ?>
             <div class="col-sm-3 text-center">
@@ -53,7 +53,10 @@
                 <p class="price">Our Price: €<?= $product['price']; ?></p>
                 <button type="button" class="btn btn-sm btn-success" onclick="detailsmodal(<?= $product['id']; ?>)">Details</button>
             </div>
-            <?php endwhile; ?>                  
+            <?php endwhile; 
+            if($productQ->num_rows == 0){
+                echo '<hr/><h3 style="color:#8591a0; text-align:center">No products to show</h3>';
+            }?>                  
         </div><hr>
     </div>
     

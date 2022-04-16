@@ -10,10 +10,14 @@
 ?>
 
 <style>
+    body{
+        background-image: url("/wearnrock/images/headerlogo/login_background.jpg");
+        background-size: 100vw 100vh;
+        background-attachment: fixed;
+    }
     a{
         padding: 5px;
         border-radius: 15px;
-        box-shadow: 1px 1px 7px 3px rgba(0,0,0,0.6);
     }
 </style>
 <div id="login-form">
@@ -69,11 +73,15 @@
             <label for="password">Password:</label>
             <input type="password" name="password" id="password" class="form-control" value="<?=$password;?>">
         </div>
-        <div class="form-group">
+       
+        <div class="form-group" style="text-align:center; margin-top:40px">
             <input type="submit" value="Login" class="btn btn-primary">
         </div>
+       
+       
+        <p class="text-right"><a href="/wearnrock/index.php" alt='home'>Visit Site</a></p>
+       
     </form>
-    <p class="text-right"><a href="/wearnrock/index.php" alt='home'>Visit Site</a></p>
 </div>
 
 <?php include 'includes/footer.php'; ?>

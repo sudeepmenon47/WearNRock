@@ -1,6 +1,6 @@
 </div><br><br>
     <!-- Footer -->
-    <div class="col-md-12 text-center">&copy; Copyright 2022 WearNRock</div>
+    <div class="col-md-12 text-center" id="footer_admin">&copy; Copyright 2022 WearNRock</div>
         <script>
             function updateSizes() {
                 var sizeString = '';
