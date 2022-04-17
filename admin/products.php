@@ -84,7 +84,9 @@
                 }
             }
             
-            $photoCount = count($_FILES['photo']['name']);
+            if(!empty($_FILES)){
+                $photoCount = count($_FILES['photo']['name']);
+            }
             
             if($photoCount > 0) {
                 for($i = 0;$i<$photoCount;$i++){echo $i;
