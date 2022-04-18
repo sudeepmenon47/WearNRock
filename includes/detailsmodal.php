@@ -12,6 +12,11 @@
     $sizestring = $product['sizes'];
     $sizestring = rtrim($sizestring,',');
     $size_array = explode(',', $sizestring);
+    if(isset($user_id)){
+        $user_id = $user_id;
+    }else{
+        $user_id = "";
+    }
 ?>
 <!-- Detials Modal -->
     <?php ob_start(); ?>
@@ -44,6 +49,7 @@
                                 <form action="add_cart.php" method="post" id="add_product_form">
                                     <input type="hidden" name="product_id" value="<?=$id;?>">
                                     <input type="hidden" name="available" id="available" value="">
+                                    <input type="hidden" name="user_id" id="user_id" value="<?=$user_id;?>">
                                     <div class="form-group">
                                         <div class="col-xs-3">
                                             <label for="quantity">Quantity:</label>

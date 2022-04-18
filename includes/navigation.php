@@ -25,5 +25,20 @@
                     <?php endwhile; ?>
                     <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> My Cart</a></li>
                 </ul>
+                <?php if(isset($user_data['first'])){ ?>
+                    <ul class="nav navbar-nav" style="float: right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello <?=$user_data['first'];?>!
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="change_password.php">Change Password</a></li>
+                                <li><a href="logout.php">Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                <?php }else{ ?> 
+                    <div style="margin-top:15px; float:right"><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a></div>
+                <?php } ?>
             </div>
         </nav>

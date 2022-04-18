@@ -1,7 +1,10 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'].'/wearnrock/core/init.php';
-if(!is_logged_in()){
+if(!is_logged_in()) {
 	login_error_redirect();
+}
+if(!has_permission('admin') || !has_permission('editor') ) {
+	permission_error_redirect('index.php');
 }
 include 'includes/head.php';
 include 'includes/navigation.php';

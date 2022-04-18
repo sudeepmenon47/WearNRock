@@ -3,6 +3,9 @@
     if(!is_logged_in()) {
         header('Location: login.php');
     }
+    if(!has_permission('admin') || !has_permission('editor') ) {
+        permission_error_redirect('../index.php');
+    }
     include 'includes/head.php';
     include 'includes/navigation.php';
     //session_destroy();
@@ -120,7 +123,7 @@
     ?>
     
     <div class="col-md-8"> 
-        <h3 class="text-center">Low Iventory</h3>
+        <h3 class="text-center">Low Inventory</h3>
         <table class="table table-condensed table-striped table-bordered ">
             <thead>
                 <th>Product</th>

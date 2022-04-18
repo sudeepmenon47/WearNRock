@@ -47,6 +47,7 @@
                 var size = jQuery('#size').val();
                 var quantity = jQuery('#quantity').val();
                 var available = jQuery('#available').val();
+                var user_id = jQuery('#user_id').val();
                 var error = '';
                 var data = jQuery('#add_product_form').serialize();
                 if(size==''||quantity==''||quantity==0){

@@ -4,6 +4,7 @@
     $size = sanitize($_POST['size']);
     $available = sanitize($_POST['available']);
     $quantity = sanitize($_POST['quantity']);
+    $usr_id = sanitize($_POST['user_id']);
     $item = array();
     $item[] = array(
         'id'        => $product_id,
@@ -18,7 +19,11 @@ $_SESSION['success_flash'] = $product['title']. ' was added to your cart.';
 
 //check to see if the cart cookie exists
 if($cart_id != ''){
-    $cartQ = $db->query("SELECT * FROM cart WHERE id = '{$cart_id}'");
+    if($usr_id != ''){
+        $cartQ = $db->query("SELECT * FROM cart WHERE id = '{$cart_id}' AND usr_id = '{$usr_id}'");
+    }else{
+        $cartQ = $db->query("SELECT * FROM cart WHERE id = '{$cart_id}'");
+    }
     $cart = mysqli_fetch_assoc($cartQ);
     $previous_items = json_decode($cart['items'],true);
     $item_match = 0;
@@ -39,13 +44,17 @@ if($cart_id != ''){
     $items_json = json_encode($new_items);
     $cart_expire = date("Y-m-d H:i:s",strtotime("+30 days"));
     $db->query("UPDATE cart SET items = '{$items_json}', expire_date = '{$cart_expire}' WHERE id = '{$cart_id}'");
+    if($usr_id != ''){
+        $db->query("UPDATE cart SET usr_id = '{$usr_id}', expire_date = '{$cart_expire}' WHERE id = '{$cart_id}'");
+    }
     setcookie(CART_COOKIE,'',1,"/",$domain,false);
     setcookie(CART_COOKIE,$cart_id,CART_COOKIE_EXPIRE,'/',$domain,false);    
 }else{
     //add the cart to the database and set cookie
     $items_json = json_encode($item);
     $cart_expire = date("Y-m-d H:i:s",strtotime("+30 days"));
-    $db->query("INSERT INTO cart (items,expire_date) VALUES ('{$items_json}','{$cart_expire}')");
+   
+    $db->query("INSERT INTO cart (items,usr_id,expire_date) VALUES ('{$items_json}','{$usr_id}','{$cart_expire}')");
     $cart_id = $db->insert_id;
     setcookie(CART_COOKIE,$cart_id,CART_COOKIE_EXPIRE,'/',$domain,false);
 }

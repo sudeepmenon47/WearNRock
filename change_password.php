@@ -3,9 +3,6 @@
     if(!is_logged_in()) {
         login_error_redirect();
     }
-    if(!has_permission('admin') || !has_permission('editor') ) {
-        permission_error_redirect('index.php');
-    }
     
     include 'includes/head.php';
     
@@ -20,6 +17,17 @@
     $user_id = $user_data['id'];
     $errors = array();
 ?>
+<style>
+    body{
+        background-image: url("/wearnrock/images/headerlogo/login_background.jpg");
+        background-size: 100vw 100vh;
+        background-attachment: fixed;
+    }
+    a{
+        padding: 5px;
+        border-radius: 15px;
+    }
+</style>
 <div id="login-form">
     <div>
 
@@ -74,7 +82,7 @@
         </div>
         <div class="form-group">
             <a href="index.php" class="btn btn-default">Cancel</a>
-            <input type="submit" value="Login" class="btn btn-primary">
+            <input type="submit" value="Submit" class="btn btn-primary">
         </div>
     </form>
     <p class="text-right"><a href="/wearnrock/index.php" alt='home'>Visit Site</a></p>

@@ -21,7 +21,12 @@ if(isset($_SESSION['SBUser'])) {
     $user_data = mysqli_fetch_assoc($query);
     $fn = explode(' ', $user_data['full_name']);
     $user_data['first'] = $fn[0];
-    $user_data['last'] = $fn[1];
+    if(array_key_exists(1,$fn)){
+        $user_data['last'] = $fn[1];
+    }else{
+        $user_data['last'] = '';
+    }
+
 }
 
 if(isset($_SESSION['success_flash'])) {

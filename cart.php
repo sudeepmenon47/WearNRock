@@ -4,20 +4,30 @@
     include 'includes/navigation.php';
     include 'includes/headerpartial.php';
     
-    if($cart_id != ''){
-      $cartQ = $db->query("SELECT * FROM cart WHERE id = '{$cart_id}'");
-      $result = mysqli_fetch_assoc($cartQ);
-      $items = json_decode($result['items'],true);
-      $i = 1;
-      $sub_total = 0;
-      $item_count = 0;
+    if(!empty($user_id)){
+        $cartQ = $db->query("SELECT * FROM cart WHERE usr_id ='{$user_id}' AND paid = 0 ORDER BY id DESC LIMIT 1");
+    }else if(!empty($cart_id) && empty($user_id)){
+        $cartQ = $db->query("SELECT * FROM cart WHERE id ='{$cart_id}'");
+    }else{
+        $cartQ = (object) array('num_rows' => 0);
+    }
+    if($cartQ->num_rows != 0){
+        $results = mysqli_fetch_assoc($cartQ);
+        $items = json_decode($results['items'],true);
+        $i = 1;
+        $sub_total = 0;
+        $item_count = 0;
+    }else{
+        $items = [];
+        $sub_total = 0;
+        $item_count = 0;
     }
 ?>
 
 <div class="col-md-12">
     <div class="row">
         <h2 class="text-center">My Shopping Cart</h2><hr>
-        <?php if($cart_id == ''): ?>
+        <?php if(count($items) == 0): ?>
         <div class="bg-danger">
             <p class="text-center text-danger">
                 Your shopping cart is empty!
@@ -105,7 +115,7 @@
                         <input type="hidden" name="sub_total" value="<?=$sub_total;?>">
                         <input type="hidden" name="grand_total" value="<?=$grand_total;?>">
                         <input type="hidden" name="cart_id" value="<?=$cart_id;?>">
-                        <input type="hidden" name="description" value="<?=$item_count.' item'.(($item_count>1)?'s':'').' from Shauntas Boutique.';?>">
+                        <input type="hidden" name="description" value="<?=$item_count.' item'.(($item_count>1)?'s':'').' from WearNRock.';?>">
                     <!-- Step 1 for Payment Option --> 
                     <div id="step1" style="display:block;"> <!-- style="display:block;" -->
                        <div class="form-group col-md-6">
