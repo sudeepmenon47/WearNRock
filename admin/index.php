@@ -3,7 +3,10 @@
     if(!is_logged_in()) {
         header('Location: login.php');
     }
-    if(!has_permission('admin') || !has_permission('editor') ) {
+
+    print(has_permission('user'));
+    if((!has_permission('admin') || !has_permission('editor')) && has_permission('user')) {
+        //print(has_permission('user'));
         permission_error_redirect('../index.php');
     }
     include 'includes/head.php';
