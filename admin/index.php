@@ -4,9 +4,7 @@
         header('Location: login.php');
     }
 
-    print(has_permission('user'));
     if((!has_permission('admin') || !has_permission('editor')) && has_permission('user')) {
-        //print(has_permission('user'));
         permission_error_redirect('../index.php');
     }
     include 'includes/head.php';
@@ -57,18 +55,18 @@
         while($x = mysqli_fetch_assoc($thisYrQ)){
             $month = date("m",strtotime($x['txn_date']));
             if (!array_key_exists($month,$current)) {
-                $current[(int)$month] = $x['grand_total'];
-            }else {
                 $current[(int)$month] += $x['grand_total'];
+            }else {
+                $current[(int)$month] = $x['grand_total'];
             }
             $currentTotal += $x['grand_total'];
         }
         while($y = mysqli_fetch_assoc($lastYrQ)){
             $month = date("m",strtotime($y['txn_date']));
             if (!array_key_exists($month,$current)) {
-                $last[(int)$month] = $y['grand_total'];
-            }else {
                 $last[(int)$month] += $y['grand_total'];
+            }else {
+                $last[(int)$month] = $y['grand_total'];
             }
             $lastTotal += $y['grand_total'];
         }

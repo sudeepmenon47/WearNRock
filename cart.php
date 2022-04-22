@@ -4,9 +4,10 @@
     include 'includes/navigation.php';
     include 'includes/headerpartial.php';
     
-    if(!empty($user_id)){
+    if(isset($user_id)){
         $cartQ = $db->query("SELECT * FROM cart WHERE usr_id ='{$user_id}' AND paid = 0 ORDER BY id DESC LIMIT 1");
-    }else if(!empty($cart_id) && empty($user_id)){
+        $user_id = $user_id;
+    }else if(!empty($cart_id) && !isset($user_id)){
         $cartQ = $db->query("SELECT * FROM cart WHERE id ='{$cart_id}'");
     }else{
         $cartQ = (object) array('num_rows' => 0);
@@ -22,6 +23,7 @@
         $sub_total = 0;
         $item_count = 0;
     }
+    //print_r($results);
 ?>
 
 <div class="col-md-12">
@@ -56,10 +58,18 @@
                     <td><?=$product['title'];?></td>
                     <td><?=money($product['price']);?></td>
                     <td>
-                        <button class="btn btn-xs btn-default" onclick="update_cart('removeone','<?=$product['id'];?>','<?=$item['size'];?>');">-</button>
+                        <?php if(isset($user_id)){ ?>
+                            <button class="btn btn-xs btn-default" onclick="update_cart('removeone','<?=$product['id'];?>','<?=$item['size'];?>','<?=$user_id;?>','<?=$results['id'];?>');">-</button>
+                        <?php }else{ ?>
+                            <button class="btn btn-xs btn-default" onclick="update_cart('removeone','<?=$product['id'];?>','<?=$item['size'];?>');">-</button>
+                        <?php } ?>
                         <?=$item['quantity'];?>
                         <?php if($item['quantity'] < $available): ?>
-                            <button class="btn btn-xs btn-default" onclick="update_cart('addone','<?=$product['id'];?>','<?=$item['size'];?>');">+</button>
+                            <?php if(isset($user_id)){ ?>
+                                <button class="btn btn-xs btn-default" onclick="update_cart('addone','<?=$product['id'];?>','<?=$item['size'];?>','<?=$user_id;?>','<?=$results['id'];?>');">+</button>
+                            <?php }else{ ?>
+                                <button class="btn btn-xs btn-default" onclick="update_cart('addone','<?=$product['id'];?>','<?=$item['size'];?>');">+</button>
+                            <?php } ?>
                         <?php else: ?>
                             <span class="text-danger">Max</span>
                         <?php endif;?>
@@ -162,7 +172,7 @@
                          <input type="text" id="number" class="form-control" data-stripe="number">
                        </div>
                        <div class="form-group col-md-2">
-                         <label for="cvc">CVC:</label>
+                         <label for="cvc">CVV:</label>
                          <input type="text" id="cvc" class="form-control" data-stripe="cvc">
                        </div>
                        <div class="form-group col-md-2">

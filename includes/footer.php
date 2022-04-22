@@ -31,12 +31,16 @@
                 });
             }
             
-            function update_cart(mode,edit_id,edit_size){
-                var data = {"mode" : mode, "edit_id" : edit_id, "edit_size" : edit_size};
+            function update_cart(mode,edit_id,edit_size,user_id,crt_id){
+                var data = {"mode" : mode, "edit_id" : edit_id, "edit_size" : edit_size, "usr_id": user_id, "crt_id": crt_id};
                 jQuery.ajax({
                     url : '/wearnrock/admin/parsers/update_cart.php',
                     method : "post",
                     data : data,
+                    // success: function(r){
+                    //     console.log(r)
+                    //     $('#followdiv').html(r.follow)
+                    // },
                     success : function(){location.reload();},
                     error : function(){alert("Something went wrong.");},
                 });
