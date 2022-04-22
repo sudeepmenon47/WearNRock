@@ -54,7 +54,7 @@
         $lastTotal = 0;
         while($x = mysqli_fetch_assoc($thisYrQ)){
             $month = date("m",strtotime($x['txn_date']));
-            if (!array_key_exists($month,$current)) {
+            if (array_key_exists((int)$month,$current)) {
                 $current[(int)$month] += $x['grand_total'];
             }else {
                 $current[(int)$month] = $x['grand_total'];
@@ -63,7 +63,7 @@
         }
         while($y = mysqli_fetch_assoc($lastYrQ)){
             $month = date("m",strtotime($y['txn_date']));
-            if (!array_key_exists($month,$current)) {
+            if (!array_key_exists((int)$month,$current)) {
                 $last[(int)$month] += $y['grand_total'];
             }else {
                 $last[(int)$month] = $y['grand_total'];
