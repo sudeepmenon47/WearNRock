@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>WearNRock</title>
+        <link rel="icon" type="image/x-icon" href="images/headerlogo/fav_icon.png">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css">
         <link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> 
